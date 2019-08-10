@@ -1,16 +1,20 @@
-function Particle(position, velocity, gravity, mass) {
+function Particle(position, velocity, gravity, mass, radius, bounce) {
     this.position = position;
     this.velocity = velocity;
     this.gravity = gravity;
     this.mass = mass;
+    this.radius = radius;
+    this.bounce = bounce;
 }
 
-Particle.fromParts = function(x, y, speed, direction, gravity, mass) {
+Particle.fromParts = function(x, y, speed, direction, gravity, mass, radius, bounce) {
     return new Particle(
         new Vector(x, y),
         Vector.fromPolar(speed, direction),
         new Vector(0, gravity || 0),
-        mass || 0
+        mass || 1,
+        radius || 0,
+        bounce || -1,
     );
 }
 
