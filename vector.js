@@ -38,3 +38,23 @@ Vector.prototype.mul = function(s) {
 Vector.prototype.div = function(s) {
     return new Vector(this.x / s, this.y / s);
 }
+
+Vector.prototype.addTo = function(v2) {
+    this.x += v2.x;
+    this.y += v2.y;
+}
+
+Vector.prototype.subFrom = function(v2) {
+    this.x -= v2.x;
+    this.y -= v2.y;
+}
+
+Vector.prototype.mulBy = function(s) {
+    this.x *= s;
+    this.y *= s;
+}
+
+Vector.prototype.divBy = function(s) {
+    this.x /= s;
+    this.y /= s;
+}
