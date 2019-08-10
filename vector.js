@@ -3,6 +3,10 @@ function Vector(x, y) {
     this.y = y;
 }
 
+Vector.fromPolar = function(length, angle) {
+    return new Vector(Math.cos(angle) * length, Math.sin(angle) * length);
+}
+
 Vector.prototype.setAngle = function(angle) {
     let length = this.getLength();
     this.x = Math.cos(angle) * length;
