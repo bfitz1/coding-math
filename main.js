@@ -1,23 +1,28 @@
-let v1 = new Vector(10, 5);
+window.onload = function() {
+    let canvas = document.getElementById('canvas');
+    let context = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+    let particles = [];
+    let numParticles = 100;
 
-console.log("Basic attributes and methods on a vector")
-console.log(`x: ${v1.x}, y: ${v1.y}, angle: ${v1.getAngle()}, length: ${v1.getLength()}`);
+    for (let i = 0; i < numParticles; i += 1) {
+        particles.push(Particle.fromParts(width / 2, height / 2, Math.random() * 4 + 1, Math.random() * Math.PI * 2));
+    }
 
-console.log("Setting attributes on a vector")
-console.log("angle -> Math.PI / 6");
-v1.setAngle(Math.PI / 6);
-console.log("length -> 100");
-v1.setLength(100);
-console.log(`x: ${v1.x}, y: ${v1.y}`);
+    update();
 
-console.log("Vector addition");
-let w1 = new Vector(10, 5);
-let w2 = new Vector(3, 4);
-let w3 = w1.add(w2);
-console.log(`x: ${w1.x}, y: ${w1.y}`);
+    function update() {
+        context.clearRect(0, 0, width, height);
 
-console.log("Scalar vector multiplicatoin")
-let u1 = new Vector(10, 5);
-console.log(`length: ${u1.getLength()}`);
-let u2 = u1.mul(2);
-console.log(`length: ${u2.getLength()}`);
+        for (let i = 0; i < numParticles; i += 1) {
+            let p = particles[i];
+            p.update();
+            context.beginPath();
+            context.arc(p.position.x, p.position.y, 10, 0, Math.PI * 2, false);
+            context.fill();
+        }
+
+        requestAnimationFrame(update);
+    }
+}
