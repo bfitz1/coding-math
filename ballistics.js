@@ -8,10 +8,45 @@ window.onload = function() {
         y: height,
         angle: -Math.PI / 4
     };
+    let cannonball = Particle.fromParts(gun.x, gun.y, 15, gun.angle, 0.2);
+    let canShoot = true;
+
+    cannonball.radius = 7;
 
     draw();
 
     document.body.addEventListener('mousedown', onMouseDown);
+
+    document.body.addEventListener('keyup', function(event) {
+        switch(event.keyCode) {
+            case 32: // space
+                if (canShoot) { shoot(); }
+                break;
+            default:
+                break;
+        }
+    });
+
+    function shoot() {
+        cannonball.position.x = gun.x + Math.cos(gun.angle) * 40;
+        cannonball.position.y = gun.y + Math.sin(gun.angle) * 40;
+        cannonball.velocity.setLength(15);
+        cannonball.velocity.setAngle(gun.angle);
+
+        canShoot = false;
+        update();
+    }
+
+    function update() {
+        cannonball.update();
+        draw();
+
+        if (cannonball.position.y > height) {
+            canShoot = true;
+        } else {
+            requestAnimationFrame(update);
+        }
+    }
 
     function onMouseDown(event) {
         document.body.addEventListener('mousemove', onMouseMove);
@@ -46,5 +81,13 @@ window.onload = function() {
         context.rotate(gun.angle);
         context.fillRect(0, -8, 40, 16);
         context.restore();
+
+        context.beginPath();
+        context.arc(
+            cannonball.position.x,
+            cannonball.position.y,
+            cannonball.radius,
+            0, 2 * Math.PI, false);
+        context.fill();
     }
 }
