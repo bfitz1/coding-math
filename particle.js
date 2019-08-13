@@ -1,13 +1,14 @@
-function Particle(position, velocity, gravity, mass, radius, bounce) {
+function Particle(position, velocity, gravity, mass, radius, bounce, friction) {
     this.position = position;
     this.velocity = velocity;
     this.gravity = gravity;
     this.mass = mass;
     this.radius = radius;
     this.bounce = bounce;
+    this.friction = friction;
 }
 
-Particle.fromParts = function(x, y, speed, direction, gravity, mass, radius, bounce) {
+Particle.fromParts = function(x, y, speed, direction, gravity, mass, radius, bounce, friction) {
     return new Particle(
         new Vector(x, y),
         Vector.fromPolar(speed, direction),
@@ -15,6 +16,7 @@ Particle.fromParts = function(x, y, speed, direction, gravity, mass, radius, bou
         mass || 1,
         radius || 0,
         bounce || -1,
+        friction || 1
     );
 }
 
@@ -40,6 +42,7 @@ Particle.prototype.gravitateTo = function(p2) {
 }
 
 Particle.prototype.update = function() {
+    this.velocity.mulBy(this.friction);
     this.velocity.addTo(this.gravity);
     this.position.addTo(this.velocity);
 }
