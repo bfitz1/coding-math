@@ -8,7 +8,7 @@ var utils = {
     },
 
     map: function(value, sourceMin, sourceMax, destMin, destMax) {
-        return lerp(norm(value, sourceMin, sourceMax), destMin, destMax);
+        return utils.lerp(utils.norm(value, sourceMin, sourceMax), destMin, destMax);
     },
 
     clamp: function(value, min, max) {
