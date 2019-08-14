@@ -61,5 +61,13 @@ var utils = {
 
     randomInt: function(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
+    },
+
+    degreesToRads: function(degrees) {
+        return degrees / 180 * Math.PI;
+    },
+
+    radsToDegrees: function(radians) {
+        return radians * 180 / Math.PI;
     }
 }
