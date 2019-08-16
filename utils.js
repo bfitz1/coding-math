@@ -63,6 +63,16 @@ var utils = {
         return Math.floor(Math.random() * (max - min + 1) + min);
     },
 
+    randomDist: function(min, max, iterations) {
+        let total = 0;
+
+        for (let i = 0; i < iterations; i += 1) {
+            total += utils.randomRange(min, max);
+        }
+
+        return total / iterations;
+    },
+
     degreesToRads: function(degrees) {
         return degrees / 180 * Math.PI;
     },
@@ -78,5 +88,5 @@ var utils = {
 
     roundNearest: function(value, nearest) {
         return Math.round(value / nearest) * nearest;
-    } 
+    }
 }
